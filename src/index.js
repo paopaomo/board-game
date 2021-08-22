@@ -14,15 +14,18 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null)
+      squares: Array(9).fill(null),
+      xIsNext: true
     }
   }
 
   handleClick(i) {
-    const squares = this.state.squares.slice();
-    squares[i] = 'X';
+    const { squares, xIsNext } = this.state;
+    const newSquares = squares.slice();
+    newSquares[i] = xIsNext ? 'X' : 'O';
     this.setState({
-      squares
+      squares: newSquares,
+      xIsNext: !xIsNext
     })
   }
 
@@ -32,7 +35,8 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    const { xIsNext } = this.state;
+    const status = `Next player: ${xIsNext ? 'X' : 'O'}`;
 
     return (
       <div>
